@@ -1,0 +1,214 @@
+﻿<Page x:Class="Diplom.Pages.EmployeesPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Diplom.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="905"
+      Title="EmployeesPage">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="50"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="50"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Заголовок -->
+        <TextBlock Grid.Column="1" Grid.Row="0" 
+                   Text="Персонал" 
+                   VerticalAlignment="Center" 
+                   Margin="5" 
+                   FontSize="16" 
+                   FontWeight="DemiBold"/>
+
+        <!-- Панель поиска, сортировки и фильтрации -->
+        <Border Grid.Column="1" Grid.Row="1" 
+                Background="White" 
+                BorderThickness="1" 
+                BorderBrush="Gray" 
+                CornerRadius="5" 
+                Margin="0 7">
+            <StackPanel Orientation="Horizontal">
+                <!-- Поиск по ФИО -->
+                <Border BorderThickness="1" 
+                        BorderBrush="Gray" 
+                        CornerRadius="3" 
+                        Margin="7">
+                    <TextBox x:Name="Search" 
+                             Width="180" 
+                             BorderThickness="0"
+                             TextChanged="Search_TextChanged"/>
+                </Border>
+
+                <!-- Сортировка -->
+                <Border BorderThickness="1" 
+                        BorderBrush="Gray" 
+                        CornerRadius="3" 
+                        Margin="7">
+                    <ComboBox x:Name="SortComboBox" 
+                              Width="160" 
+                              BorderThickness="0"
+                              SelectionChanged="SortComboBox_SelectionChanged"/>
+                </Border>
+
+                <!-- Фильтр по отделу -->
+                <Border BorderThickness="1" 
+                        BorderBrush="Gray" 
+                        CornerRadius="3" 
+                        Margin="7">
+                    <ComboBox x:Name="FilterDepartmentComboBox" 
+                              Width="220" 
+                              BorderThickness="0"
+                              SelectionChanged="FilterDepartmentComboBox_SelectionChanged"/>
+                </Border>
+
+                <!-- Фильтр по должности -->
+                <Border BorderThickness="1" 
+                        BorderBrush="Gray" 
+                        CornerRadius="3" 
+                        Margin="7">
+                    <ComboBox x:Name="FilterPositionComboBox" 
+                              Width="180" 
+                              BorderThickness="0"
+                              SelectionChanged="FilterPositionComboBox_SelectionChanged"/>
+                </Border>
+
+                <!-- Фильтр по типу занятости -->
+                <Border BorderThickness="1" 
+                        BorderBrush="Gray" 
+                        CornerRadius="3" 
+                        Margin="7">
+                    <ComboBox x:Name="FilterEmploymentTypeComboBox" 
+                              Width="180" 
+                              BorderThickness="0"
+                              SelectionChanged="FilterEmploymentTypeComboBox_SelectionChanged"/>
+                </Border>
+            </StackPanel>
+        </Border>
+
+        <!-- Список сотрудников -->
+        <Border Grid.Column="1" Grid.Row="2" 
+                Background="White" 
+                BorderThickness="1" 
+                BorderBrush="Gray" 
+                CornerRadius="5">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <ItemsControl x:Name="PersonellItemsControl">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border CornerRadius="3"
+        BorderBrush="LightGray"
+        BorderThickness="1"
+        Padding="10"
+        Margin="5"
+        MouseLeftButtonDown="EmployeeCard_MouseDoubleClick">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <!-- Первая строка: ФИО и отдел -->
+                                    <StackPanel Orientation="Horizontal" Grid.Row="0">
+                                        <TextBlock Text="{Binding LastName}" 
+                                                   FontSize="16" 
+                                                   FontWeight="Bold"
+                                                   Margin="0, 0, 5, 0"/>
+                                        <TextBlock Text="{Binding FirstName}" 
+                                                   FontSize="16" 
+                                                   Margin="0, 0, 5, 0"/>
+                                        <TextBlock Text="{Binding Patronymic}" 
+                                                   FontSize="16" 
+                                                   Margin="0, 0, 10, 0"/>
+                                        <TextBlock Text="|" 
+                                                   FontSize="16" 
+                                                   Foreground="Gray"
+                                                   Margin="0, 0, 10, 0"/>
+                                        <TextBlock Text="{Binding DepartmentName}" 
+                                                   FontSize="16"/>
+                                    </StackPanel>
+
+                                    <!-- Вторая строка: Должность, тип занятости, стаж -->
+                                    <StackPanel Orientation="Horizontal" 
+                                                Grid.Row="1"
+                                                Margin="0, 5, 0, 0">
+                                        <TextBlock Text="{Binding PositionName}" 
+                                                   FontSize="14"/>
+                                        <TextBlock Text="|" 
+                                                   FontSize="14" 
+                                                   Foreground="Gray"
+                                                   Margin="5, 0"/>
+                                        <TextBlock Text="{Binding EmploymentTypeName}" 
+                                                   FontSize="14"/>
+                                        <TextBlock Text="|" 
+                                                   FontSize="14" 
+                                                   Foreground="Gray"
+                                                   Margin="5, 0"/>
+                                        <TextBlock FontSize="14">
+                                            <Run Text="Стаж: "/>
+                                            <Run Text="{Binding WorkExperience, Mode=OneWay}"/>
+                                            <Run Text=" лет"/>
+                                        </TextBlock>
+                                    </StackPanel>
+
+                                    <!-- Третья строка: Нагрузка и медосмотр -->
+                                    <StackPanel Orientation="Horizontal" 
+                                                Grid.Row="2"
+                                                Margin="0, 5, 0, 0">
+                                        <!-- Цветной индикатор загрузки -->
+                                        <Border Width="12" Height="12" 
+                                                CornerRadius="6"
+                                                Margin="0, 0, 5, 0"
+                                                VerticalAlignment="Center"
+                                                Background="{Binding LoadBrush}"/>
+
+                                        <!-- Нагрузка -->
+                                        <TextBlock FontSize="14" VerticalAlignment="Center">
+                                            <Run Text="Нагрузка: "/>
+                                            <Run Text="{Binding PlannedHours, TargetNullValue='Н/Д', Mode=OneWay}"/>
+                                            <Run Text=" ч. ("/>
+                                            <Run Text="{Binding LoadPercent, TargetNullValue='Н/Д', Mode=OneWay}"/>
+                                            <Run Text="%)"/>
+                                        </TextBlock>
+
+                                        <TextBlock Text="|" 
+                                                   FontSize="14" 
+                                                   Foreground="Gray"
+                                                   Margin="10, 0"
+                                                   VerticalAlignment="Center"/>
+
+                                        <!-- Медосмотр -->
+                                        <TextBlock FontSize="14" VerticalAlignment="Center">
+                                            <Run Text="Медосмотр до: "/>
+                                            <Run Text="{Binding MedicalExamDate, StringFormat=dd.MM.yyyy, Mode=OneWay}"/>
+                                        </TextBlock>
+
+                                        <TextBlock Text="|" 
+                                                   FontSize="14" 
+                                                   Foreground="Gray"
+                                                   Margin="10, 0"
+                                                   VerticalAlignment="Center"/>
+
+                                        <!-- Дата приёма -->
+                                        <TextBlock FontSize="14" VerticalAlignment="Center">
+                                            <Run Text="Принят: "/>
+                                            <Run Text="{Binding HireDate, StringFormat=dd.MM.yyyy, Mode=OneWay}"/>
+                                        </TextBlock>
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </Border>
+    </Grid>
+</Page>

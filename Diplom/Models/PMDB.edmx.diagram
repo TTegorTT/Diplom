@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="56725417d47743c48321b7b1f9eb1567" Name="Diagram1">
+        <EntityTypeShape EntityType="PMModel.Departments" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PMModel.Employees" Width="1.5" PointX="3" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="PMModel.EmploymentTypes" Width="1.5" PointX="0.75" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="PMModel.Positions" Width="1.5" PointX="0.75" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="PMModel.RateNorms" Width="1.5" PointX="3" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="PMModel.Users" Width="1.5" PointX="5.25" PointY="3.625" IsExpanded="true" />
+        <AssociationConnector Association="PMModel.FK__Employees__Depar__52593CB8" ManuallyRouted="false" />
+        <AssociationConnector Association="PMModel.FK__Employees__Emplo__5165187F" ManuallyRouted="false" />
+        <AssociationConnector Association="PMModel.FK__Employees__Posit__534D60F1" ManuallyRouted="false" />
+        <AssociationConnector Association="PMModel.FK__Users__EmployeeI__59FA5E80" ManuallyRouted="false" />
+        <AssociationConnector Association="PMModel.FK__RateNorms__Posit__5629CD9C" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
